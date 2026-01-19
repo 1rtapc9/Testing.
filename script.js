@@ -3,7 +3,7 @@ const clientSecret = "YOUR_SPOTIFY_CLIENT_SECRET";
 
 let accessToken = "";
 
-// Get Spotify access token
+// Get access token
 async function getAccessToken() {
     const response = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
@@ -18,18 +18,20 @@ async function getAccessToken() {
     accessToken = data.access_token;
 }
 
-// Search for a song
-async function searchSong() {
+// Search songs by name
+async function searchSongs() {
+    const query = document.getElementById("searchInput").value.trim();
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.innerHTML = "";
+
+    if (!query) return;
+
     if (!accessToken) {
         await getAccessToken();
     }
 
-    const query = document.getElementById("searchInput").value;
-    const resultsDiv = document.getElementById("results");
-    resultsDiv.innerHTML = "";
-
     const response = await fetch(
-        `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=5`,
+        `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=10`,
         {
             headers: {
                 "Authorization": "Bearer " + accessToken
@@ -40,19 +42,22 @@ async function searchSong() {
     const data = await response.json();
 
     data.tracks.items.forEach(track => {
-        const div = document.createElement("div");
-        div.className = "song";
+        const songDiv = document.createElement("div");
+        songDiv.className = "song";
 
-        div.innerHTML = `
+        const artists = track.artists.map(a => a.name).join(", ");
+
+        songDiv.innerHTML = `
             <h3>${track.name}</h3>
-            <p>${track.artists[0].name}</p>
+            <p>${artists}</p>
             ${
                 track.preview_url
                     ? `<audio controls src="${track.preview_url}"></audio>`
-                    : "<p>No preview available</p>"
+                    : `<p>No preview available</p>`
             }
         `;
 
-        resultsDiv.appendChild(div);
+        resultsDiv.appendChild(songDiv);
     });
 }
+
