@@ -28,23 +28,35 @@ button {
 }
 
 .song {
+    display: flex;
+    gap: 15px;
     background-color: #1e1e1e;
-    width: 340px;
+    width: 360px;
     margin: 15px auto;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     text-align: left;
 }
 
-.song h3 {
+.song img {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+}
+
+.song-details {
+    flex: 1;
+}
+
+.song-details h3 {
     margin: 0;
     font-size: 16px;
 }
 
-.song p {
+.song-details p {
     margin: 5px 0 10px;
-    color: #b3b3b3;
     font-size: 14px;
+    color: #b3b3b3;
 }
 
 audio {
