@@ -2,20 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Song Preview Search</title>
+    <title>Music Preview Player</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Song Preview Search</h1>
-<p>Search for a song and choose the version you want to preview.</p>
+<header>
+    <h1>Music Preview Player</h1>
+    <input id="searchInput" type="text" placeholder="Search songs...">
+</header>
 
-<div class="search-box">
-    <input type="text" id="searchInput" placeholder="Enter song name">
-    <button onclick="searchSongs()">Search</button>
-</div>
+<main>
+    <section id="resultsSection">
+        <h2>Results</h2>
+        <div id="results"></div>
+    </section>
 
-<div id="results"></div>
+    <aside id="playlistSection">
+        <h2>Playlist</h2>
+        <div id="playlist"></div>
+    </aside>
+</main>
+
+<footer>
+    <p>Preview-based demo site</p>
+</footer>
 
 <script src="script.js"></script>
 </body>
